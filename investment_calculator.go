@@ -40,11 +40,13 @@ import "fmt"
 
 func main() {
 	var revenue float64 = 0
-	fmt.Print("Enter Revenue: ")
+	outputText("Enter Revenue: ")
+	//fmt.Print("Enter Revenue: ")
 	fmt.Scan(&revenue)
 
 	var expenses float64 = 0
-	fmt.Print("Enter expenses: ")
+	outputText("Enter expenses: ")
+	//fmt.Print("Enter expenses: ")
 	fmt.Scan(&expenses)
 
 	var taxRate float64 = 0
@@ -52,12 +54,30 @@ func main() {
 	fmt.Scan(&taxRate)
 
 	var ebt = revenue - expenses
-	var taxAmount = revenue * taxRate / 100
-	var profit float64 = ebt - taxAmount
-	var ratio = ebt / profit
+	var taxAmount = calculateEbt(revenue, taxRate)
+	var profit, ratio float64 = calculateProfitAndRatio(ebt, taxAmount)
 
+	pritnOutput(ebt, profit, ratio)
+
+}
+
+func outputText(text string) {
+	fmt.Println(text)
+}
+
+func calculateEbt(revenue, taxRate float64) float64 {
+	return revenue * taxRate / 100
+}
+
+func calculateProfitAndRatio(ebt, taxAmount float64) (float64, float64) {
+	profit := ebt - taxAmount
+	ratio := ebt / profit
+
+	return profit, ratio
+}
+
+func pritnOutput(ebt, profit, ratio float64) {
 	fmt.Println("Ebt: ", ebt)
 	fmt.Println("profit: ", profit)
 	fmt.Println("ratio: ", ratio)
-
 }
